@@ -1,0 +1,50 @@
+{
+  "name": "my-electron-app",
+  "version": "1.0.0",
+  "description": "Hello World!",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "electron .",
+    "dist": "electron-builder",
+    "build": "electron-builder build --win --publish never",
+    "deploy": "electron-builder build --win --publish always",
+    "package-win": "electron-packager . --overwrite --asar=true --platform=win32 --arch=x64 --prune=true --out=release-builds"
+  },
+  "author": "Minal",
+  "license": "ISC",
+  "devDependencies": {
+    "electron": "^23.2.4",
+    "electron-builder": "^23.6.0",
+    "electron-packager": "^17.1.1",
+    "electron-winstaller": "^5.1.0"
+  },
+  "build": {
+    "appId": "electron-autoupdate",
+    "productName": "Electron Autoupdate",
+    "compression": "maximum",
+    "asar": true,
+    "prune": true,
+    "win": {
+      "target": "NSIS",
+      "requestedExecutionLevel": "requireAdministrator",
+      "files": [
+        "!release-builds",
+        "!package-lock.json"
+      ]
+    },
+    "nsis": {
+      "uninstallDisplayName": "Electron Autoupdate",
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "allowElevation": true
+    }
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Minal-codezee/electron-autoupdate.git"
+  },
+  "dependencies": {
+    "electron-updater": "^5.3.0"
+  }
+}
