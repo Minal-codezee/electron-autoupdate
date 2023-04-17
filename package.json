@@ -1,6 +1,6 @@
 {
   "name": "my-electron-app",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Hello World!",
   "main": "main.js",
   "scripts": {
@@ -19,19 +19,15 @@
     "electron-packager": "^17.1.1",
     "electron-winstaller": "^5.1.0"
   },
+  "repository": {
+    "type" : "git",
+    "url" : "https://github.com/Minal-codezee/electron-autoupdate.git"
+  },
   "build": {
     "appId": "electron-autoupdate",
     "productName": "Electron Autoupdate",
     "compression": "maximum",
     "asar": true,
-    "publish": [
-      {
-        "provider": "github",
-        "owner": "Minal-codezee",
-        "repo": "electron-autoupdate",
-        "token": "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"
-      }
-    ],
     "win": {
       "target": "NSIS",
       "publish": [
