@@ -24,7 +24,6 @@
     "productName": "Electron Autoupdate",
     "compression": "maximum",
     "asar": true,
-    "prune": true,
     "win": {
       "target": "NSIS",
       "requestedExecutionLevel": "requireAdministrator",
@@ -42,7 +41,8 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/Minal-codezee/electron-autoupdate.git"
+    "url": "https://github.com/Minal-codezee/electron-autoupdate.git",
+    "token": "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"
   },
   "dependencies": {
     "electron-updater": "^5.3.0"
