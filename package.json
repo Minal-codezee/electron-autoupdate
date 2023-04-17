@@ -24,8 +24,19 @@
     "productName": "Electron Autoupdate",
     "compression": "maximum",
     "asar": true,
+    "publish": [
+      {
+        "provider": "github",
+        "owner": "Minal-codezee",
+        "repo": "electron-autoupdate",
+        "token": "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"
+      }
+    ],
     "win": {
       "target": "NSIS",
+      "publish": [
+        "github"
+      ],
       "requestedExecutionLevel": "requireAdministrator",
       "files": [
         "!release-builds",
@@ -38,11 +49,6 @@
       "allowToChangeInstallationDirectory": true,
       "allowElevation": true
     }
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/Minal-codezee/electron-autoupdate.git",
-    "token": "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"
   },
   "dependencies": {
     "electron-updater": "^5.3.0"
