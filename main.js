@@ -43,8 +43,8 @@ ipcMain.on("restart_app", () => {
   autoUpdater.quitAndInstall();
 });
 
-autoUpdater.logger.transports.file.level = "info";
 autoUpdater.on("checking-for-update", function (_arg1) {
+  console.log('checking-for-update', _arg1);
     return log.info("Checking for update...");
 });
 

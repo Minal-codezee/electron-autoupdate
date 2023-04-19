@@ -1,6 +1,6 @@
 {
   "name": "my-electron-app",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "Hello World!",
   "main": "main.js",
   "scripts": {
@@ -30,9 +30,11 @@
     "asar": true,
     "win": {
       "target": "NSIS",
-      "publish": [
-        "github"
-      ],
+      "publish": {
+        "provider": "github",
+        "releaseType": "draft",
+        "token": "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"
+      },
       "requestedExecutionLevel": "requireAdministrator",
       "files": [
         "!release-builds",
