@@ -18,6 +18,7 @@ createWindow = () => {
 
   
   win.once('ready-to-show', () => {
+    console.log('ready-to-show');
     autoUpdater.checkForUpdatesAndNotify();
   });
 }
