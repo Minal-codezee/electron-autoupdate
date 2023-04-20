@@ -1,5 +1,12 @@
 const { app, BrowserWindow, ipcMain } = require('electron');
 const { autoUpdater } = require('electron-updater');
+const app2 = require('electron').app;
+
+Object.defineProperty(app2, 'isPackaged', {
+  get() {
+    return true;
+  }
+});
 
 createWindow = () => {
   const win = new BrowserWindow({
@@ -44,9 +51,14 @@ ipcMain.on("restart_app", () => {
   autoUpdater.quitAndInstall();
 });
 
+autoUpdater.on("checkForUpdates ", function (_arg1) {
+  console.log('checkForUpdates', _arg1);
+    // return log.info("Checking for update...");
+});
+
 autoUpdater.on("checking-for-update", function (_arg1) {
   console.log('checking-for-update', _arg1);
-    return log.info("Checking for update...");
+    // return log.info("Checking for update...");
 });
 
 autoUpdater.on('update-available', () => {
@@ -59,5 +71,5 @@ autoUpdater.on('update-downloaded', () => {
 });
 autoUpdater.on("error", function (err) {
   console.log('err', err);
-  return log.info("Error in auto-updater. " + err);
+  // return log.info("Error in auto-updater. " + err);
 });
