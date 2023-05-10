@@ -1,6 +1,6 @@
 {
   "name": "my-electron-app",
-  "version": "1.0.7-test",
+  "version": "1.0.8",
   "description": "Hello World!",
   "main": "main.js",
   "scripts": {
@@ -32,7 +32,7 @@
       "target": "NSIS",
       "publish": {
         "provider": "github",
-        "releaseType": "prerelease",
+        "releaseType": "release",
         "token": "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"
       },
       "requestedExecutionLevel": "requireAdministrator",

@@ -12,7 +12,7 @@ ipcRenderer.on("app_version", (event, arg) => {
   version.innerText = "Version " + arg.version;
 });
 
-ipcRenderer.on("update_available", () => {
+ipcRenderer.on("update_available", (arg) => {
   console.log("update_available", arg);
   ipcRenderer.removeAllListeners("update_available");
   message.innerText = "A new update is available. Downloading now...";

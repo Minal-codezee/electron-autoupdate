@@ -2,7 +2,16 @@ const { app, BrowserWindow, ipcMain } = require('electron');
 const { autoUpdater } = require('electron-updater');
 const app2 = require('electron').app;
 const log = require("electron-log");
+const { version } = require("./package");
 
+
+const server = "https://update.electronjs.org";
+const feed = `${server}/electron/update-server/${process.platform}/${version}`;
+console.log(`Current version: ${version}`);
+
+autoUpdater.setFeedURL(feed);
+
+autoUpdater.checkForUpdates();
 Object.defineProperty(app2, 'isPackaged', {
   get() {
     return true;
@@ -25,10 +34,10 @@ createWindow = () => {
   win.webContents.openDevTools();
 
 
-  win.once('ready-to-show', () => {
-    console.log('ready-to-show');
-    autoUpdater.checkForUpdatesAndNotify();
-  });
+  // win.once('ready-to-show', () => {
+  //   console.log('ready-to-show');
+  //   autoUpdater.checkForUpdatesAndNotify();
+  // });
 }
 
 app.whenReady().then(() => {
@@ -72,8 +81,14 @@ autoUpdater.on("update-not-available", () => {
   mainWindow.webContents.send("update_not_available");
 });
 
-autoUpdater.on('update-downloaded', () => {
+autoUpdater.on('update-downloaded', (event, releaseNotes, releaseName, updateURL) => {
   log.info('update-downloaded');
+  console.log("update-downloaded", {
+    event,
+    releaseNotes,
+    releaseName,
+    updateURL,
+  });
   mainWindow.webContents.send('update_downloaded');
 });
 
