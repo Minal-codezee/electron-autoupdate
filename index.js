@@ -13,6 +13,7 @@ ipcRenderer.on("app_version", (event, arg) => {
 });
 
 ipcRenderer.on("update_available", () => {
+  console.log("update_available", arg);
   ipcRenderer.removeAllListeners("update_available");
   message.innerText = "A new update is available. Downloading now...";
   notification.classList.remove("hidden");

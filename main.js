@@ -23,7 +23,7 @@ createWindow = () => {
 
   win.webContents.openDevTools();
 
-  
+
   win.once('ready-to-show', () => {
     console.log('ready-to-show');
     autoUpdater.checkForUpdatesAndNotify();
@@ -39,7 +39,7 @@ app.on('window-all-closed', () => {
 })
 
 //Hide menubar
-app.on('browser-window-created',function(e,window) {
+app.on('browser-window-created', function (e, window) {
   window.setMenu(null);
 });
 
@@ -51,14 +51,14 @@ ipcMain.on("restart_app", () => {
   autoUpdater.quitAndInstall();
 });
 
-autoUpdater.on("checkForUpdates ", function (_arg1) {
-  console.log('checkForUpdates', _arg1);
-    // return log.info("Checking for update...");
-});
+// autoUpdater.on("checkForUpdates ", function (_arg1) {
+//   console.log('checkForUpdates', _arg1);
+//     // return log.info("Checking for update...");
+// });
 
 autoUpdater.on("checking-for-update", function (_arg1) {
   console.log('checking-for-update', _arg1);
-    // return log.info("Checking for update...");
+  // return log.info("Checking for update...");
 });
 
 autoUpdater.on('update-available', () => {

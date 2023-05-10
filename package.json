@@ -32,7 +32,7 @@
       "target": "NSIS",
       "publish": {
         "provider": "github",
-        "releaseType": "draft",
+        "releaseType": "prerelease",
         "token": "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"
       },
       "requestedExecutionLevel": "requireAdministrator",
