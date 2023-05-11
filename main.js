@@ -60,10 +60,11 @@ ipcMain.on("restart_app", () => {
 //     // return log.info("Checking for update...");
 // });
 
-autoUpdater.on("checking-for-update", function (_arg1) {
+autoUpdater.on("checking-for-update", (_arg1) => {
   log.info('checking-for-update', _arg1);
   dialog.showMessageBox({
-    message: 'CHECKING FOR UPDATES !!'
+    message: 'CHECKING FOR UPDATES !!',
+    _arg1
   })
   return log.info("Checking for update...");
 });
