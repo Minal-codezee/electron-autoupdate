@@ -43,9 +43,9 @@ app.on('window-all-closed', () => {
 })
 
 //Hide menubar
-app.on('browser-window-created', function (e, window) {
-  window.setMenu(null);
-});
+// app.on('browser-window-created', function (e, window) {
+//   window.setMenu(null);
+// });
 
 ipcMain.on('app_version', (event) => {
   event.sender.send('app_version', { version: app.getVersion() });
