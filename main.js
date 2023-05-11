@@ -77,8 +77,8 @@ autoUpdater.on('update-available', () => {
   dialog.showMessageBox({
     message: 'update-available !!'
   });
-  let pth = autoUpdater.downloadUpdate();
-  curWindow.showMessage(pth);
+  autoUpdater.downloadUpdate();
+  // curWindow.showMessage(pth);
   // win.webContents.send('update_available');
 });
 
