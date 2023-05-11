@@ -20,8 +20,10 @@ Object.defineProperty(app2, 'isPackaged', {
   }
 });
 
+let win;
+
 createWindow = () => {
-  const win = new BrowserWindow({
+  win = new BrowserWindow({
     width: 800,
     height: 600,
     webPreferences: {
@@ -77,7 +79,7 @@ autoUpdater.on('update-available', () => {
   dialog.showMessageBox({
     message: 'update-available !!'
   })
-  // mainWindow.webContents.send('update_available');
+  win.webContents.send('update_available');
 });
 
 autoUpdater.on("update-not-available", () => {
@@ -85,7 +87,7 @@ autoUpdater.on("update-not-available", () => {
   dialog.showMessageBox({
     message: 'auto updater sending update NOT available !!'
   })
-  // mainWindow.webContents.send("update_not_available");
+  win.webContents.send("update_not_available");
 });
 
 autoUpdater.on('update-downloaded', (event, releaseNotes, releaseName, updateURL) => {
@@ -99,7 +101,7 @@ autoUpdater.on('update-downloaded', (event, releaseNotes, releaseName, updateURL
   dialog.showMessageBox({
     message: 'update Downloaded !!'
   })
-  // mainWindow.webContents.send('update_downloaded');
+  win.webContents.send('update_downloaded');
 });
 
 autoUpdater.on("error", function (err) {
