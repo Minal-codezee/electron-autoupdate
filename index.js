@@ -4,7 +4,6 @@ const notification = document.getElementById("notification");
 const message = document.getElementById("message");
 const restartButton = document.getElementById("restart-button");
 "use strict";
-
 ipcRenderer.send("app_version");
 ipcRenderer.on("app_version", (event, arg) => {
   console.log("event from html", event);

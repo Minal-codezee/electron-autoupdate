@@ -36,12 +36,17 @@ createWindow = () => {
 
   win.loadFile('index.html');
 
+  // Open devTools 
   // win.webContents.openDevTools();
-  autoUpdater.checkForUpdates();
+
+  // Open devTools in seperate window 
+  let wc = win.webContents;
+  wc.openDevTools({ mode: "undocked" });
 }
 
 app.whenReady().then(() => {
-  createWindow()
+  createWindow();
+  autoUpdater.checkForUpdates();
 })
 
 app.on('window-all-closed', () => {
@@ -61,37 +66,29 @@ ipcMain.on("restart_app", () => {
   autoUpdater.quitAndInstall();
 });
 
-// autoUpdater.on("checkForUpdates ", function (_arg1) {
-//   console.log('checkForUpdates', _arg1);
-//     // return log.info("Checking for update...");
-// });
-
 autoUpdater.on("checking-for-update", (_arg1) => {
   dialog.showMessageBox({
     message: 'CHECKING FOR UPDATES !!',
     _arg1
-  })
-  return log.info("Checking for update...");
+  });
 });
 
 autoUpdater.on('update-available', () => {
-  log.info("update-available");
   dialog.showMessageBox({
     message: 'update-available !!'
-  })
-  win.webContents.send('update_available');
+  });
+  let pth = autoUpdater.downloadUpdate();
+  curWindow.showMessage(pth);
+  // win.webContents.send('update_available');
 });
 
 autoUpdater.on("update-not-available", () => {
-  log.info("auto updater sending update NOT available");
   dialog.showMessageBox({
     message: 'auto updater sending update NOT available !!'
-  })
-  win.webContents.send("update_not_available");
+  });
 });
 
 autoUpdater.on('update-downloaded', (event, releaseNotes, releaseName, updateURL) => {
-  log.info('update-downloaded');
   console.log("update-downloaded", {
     event,
     releaseNotes,
@@ -99,16 +96,13 @@ autoUpdater.on('update-downloaded', (event, releaseNotes, releaseName, updateURL
     updateURL,
   });
   dialog.showMessageBox({
-    message: 'update Downloaded !!'
-  })
-  win.webContents.send('update_downloaded');
+    message: 'update Downloaded !!' + releaseNotes + releaseName + updateURL
+  });
+  // win.webContents.send('update_downloaded');
 });
 
 autoUpdater.on("error", function (err) {
-  console.log('err', err);
-  return log.info("Error in auto-updater. " + err);
+  dialog.showMessageBox({
+    message: "Error in auto-updater. " + err
+  });
 });
-
-app.on('ready', () => {
-  if (process.env.NODE_ENV === 'production') autoUpdater.checkForUpdates()
-})
