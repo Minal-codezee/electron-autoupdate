@@ -1,9 +1,8 @@
-const { app, BrowserWindow, ipcMain } = require('electron');
+const { app, BrowserWindow, ipcMain, dialog } = require('electron');
 const { autoUpdater } = require('electron-updater');
 const app2 = require('electron').app;
 const log = require("electron-log");
 const { version } = require("./package");
-
 
 const server = "https://update.electronjs.org";
 const feed = `${server}/electron/update-server/${process.platform}/${version}`;
@@ -11,7 +10,6 @@ console.log(`Current version: ${version}`);
 
 autoUpdater.setFeedURL(feed);
 
-autoUpdater.checkForUpdates();
 Object.defineProperty(app2, 'isPackaged', {
   get() {
     return true;
@@ -25,19 +23,15 @@ createWindow = () => {
     webPreferences: {
       nodeIntegration: true,
       contextIsolation: false,
-      enableRemoteModule: true
+      enableRemoteModule: true,
+      defaultEncoding: 'UTF-8'
     },
   })
 
   win.loadFile('index.html');
 
-  win.webContents.openDevTools();
-
-
-  // win.once('ready-to-show', () => {
-  //   console.log('ready-to-show');
-  //   autoUpdater.checkForUpdatesAndNotify();
-  // });
+  // win.webContents.openDevTools();
+  autoUpdater.checkForUpdates();
 }
 
 app.whenReady().then(() => {
@@ -68,11 +62,17 @@ ipcMain.on("restart_app", () => {
 
 autoUpdater.on("checking-for-update", function (_arg1) {
   log.info('checking-for-update', _arg1);
+  dialog.showMessageBox({
+    message: 'CHECKING FOR UPDATES !!'
+  })
   return log.info("Checking for update...");
 });
 
 autoUpdater.on('update-available', () => {
   log.info("update-available");
+  dialog.showMessageBox({
+    message: 'update-available !!'
+  })
   mainWindow.webContents.send('update_available');
 });
 
@@ -89,6 +89,9 @@ autoUpdater.on('update-downloaded', (event, releaseNotes, releaseName, updateURL
     releaseName,
     updateURL,
   });
+  dialog.showMessageBox({
+    message: 'update Downloaded !!'
+  })
   mainWindow.webContents.send('update_downloaded');
 });
 
@@ -96,3 +99,7 @@ autoUpdater.on("error", function (err) {
   console.log('err', err);
   return log.info("Error in auto-updater. " + err);
 });
+
+app.on('ready', () => {
+  if (process.env.NODE_ENV === 'production') autoUpdater.checkForUpdates()
+})
