@@ -1,6 +1,6 @@
 {
   "name": "my-electron-app",
-  "version": "1.0.17",
+  "version": "1.0.18",
   "description": "Hello World!",
   "main": "main.js",
   "scripts": {
@@ -41,13 +41,8 @@
         "!release-builds",
         "!package-lock.json"
       ]
-    },
-    "nsis": {
-      "uninstallDisplayName": "Electron Autoupdate",
-      "oneClick": false,
-      "allowToChangeInstallationDirectory": true,
-      "allowElevation": true
     }
+   
   },
   "dependencies": {
     "electron-log": "^4.4.8",
