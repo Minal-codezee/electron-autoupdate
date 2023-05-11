@@ -3,6 +3,7 @@ const version = document.getElementById("version");
 const notification = document.getElementById("notification");
 const message = document.getElementById("message");
 const restartButton = document.getElementById("restart-button");
+"use strict";
 
 ipcRenderer.send("app_version");
 ipcRenderer.on("app_version", (event, arg) => {
@@ -12,8 +13,8 @@ ipcRenderer.on("app_version", (event, arg) => {
   version.innerText = "Version " + arg.version;
 });
 
-ipcRenderer.on("update_available", (arg) => {
-  console.log("update_available", arg);
+ipcRenderer.on("update_available", () => {
+  console.log("update_available");
   ipcRenderer.removeAllListeners("update_available");
   message.innerText = "A new update is available. Downloading now...";
   notification.classList.remove("hidden");

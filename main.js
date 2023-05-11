@@ -4,11 +4,15 @@ const app2 = require('electron').app;
 const log = require("electron-log");
 const { version } = require("./package");
 
-const server = "https://update.electronjs.org";
-const feed = `${server}/electron/update-server/${process.platform}/${version}`;
 console.log(`Current version: ${version}`);
 
-autoUpdater.setFeedURL(feed);
+autoUpdater.setFeedURL({
+  provider: 'github',
+  repo: 'electron-autoupdate',
+  owner: 'Minal-codezee',
+  private: true,
+  token: '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'
+});
 
 Object.defineProperty(app2, 'isPackaged', {
   get() {
@@ -61,7 +65,6 @@ ipcMain.on("restart_app", () => {
 // });
 
 autoUpdater.on("checking-for-update", (_arg1) => {
-  log.info('checking-for-update', _arg1);
   dialog.showMessageBox({
     message: 'CHECKING FOR UPDATES !!',
     _arg1
@@ -74,12 +77,15 @@ autoUpdater.on('update-available', () => {
   dialog.showMessageBox({
     message: 'update-available !!'
   })
-  mainWindow.webContents.send('update_available');
+  // mainWindow.webContents.send('update_available');
 });
 
 autoUpdater.on("update-not-available", () => {
   log.info("auto updater sending update NOT available");
-  mainWindow.webContents.send("update_not_available");
+  dialog.showMessageBox({
+    message: 'auto updater sending update NOT available !!'
+  })
+  // mainWindow.webContents.send("update_not_available");
 });
 
 autoUpdater.on('update-downloaded', (event, releaseNotes, releaseName, updateURL) => {
@@ -93,7 +99,7 @@ autoUpdater.on('update-downloaded', (event, releaseNotes, releaseName, updateURL
   dialog.showMessageBox({
     message: 'update Downloaded !!'
   })
-  mainWindow.webContents.send('update_downloaded');
+  // mainWindow.webContents.send('update_downloaded');
 });
 
 autoUpdater.on("error", function (err) {
